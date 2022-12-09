@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .forms import LinkForm
 from .models import LinksModel
 
@@ -26,4 +26,13 @@ def short_link(request):
                 obj = LinksModel.objects.filter(gen_link=value)
                 if not obj.exists():
                     switch = False
+            form.instance.gen_link = value
+            form.save()
             return render(request, 'main/successful.html', {'link':value})
+        return render(request, 'main/index.html', {'form':form})
+
+def open_link(request, value):
+    page = get_object_or_404(LinksModel, gen_link=value)
+    print(page.cl_link)
+    return render(request, 'main/redirect_js.html', {'page':page})
+

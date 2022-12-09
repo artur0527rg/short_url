@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import short_link
+from .views import short_link, open_link
 
 urlpatterns = [
     path('', short_link, name='index'),
+    path('<slug:value>/', open_link, name="open")
 ]
