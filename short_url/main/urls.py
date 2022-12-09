@@ -18,5 +18,5 @@ from django.urls import path
 from .views import short_link
 
 urlpatterns = [
-    path('', short_link),
+    path('', short_link, name='index'),
 ]
